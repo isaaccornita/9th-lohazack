@@ -48,6 +48,14 @@ html, body {
 .hero h1 { font-family:'Great Vibes', cursive; font-size:clamp(3rem,10vw,7rem); margin-bottom:0.5rem; }
 .hero p { font-family:'Lora', serif; font-size:1.2rem; margin-bottom:0.5rem; }
 
+/* Counter Section */
+.counter-section { text-align:center; padding:3rem 1rem; background:var(--soft-white); }
+.counter-grid { display:flex; justify-content:center; flex-wrap:wrap; gap:2rem; max-width:800px; margin:2rem auto 0; }
+.counter-item { text-align:center; min-width:120px; opacity:0; transform:translateY(20px); transition:opacity 0.6s ease, transform 0.6s ease; }
+.counter-item.visible { opacity:1; transform:translateY(0); }
+.counter-number { font-family:'Playfair Display', serif; font-size:clamp(2.5rem,5vw,3.5rem); font-weight:700; color:var(--deep-rose); line-height:1; }
+.counter-label { font-family:'Lora', serif; font-size:0.9rem; color:var(--wine); margin-top:0.3rem; letter-spacing:0.1em; text-transform:uppercase; }
+
 /* Gallery */
 .gallery { display:flex; justify-content:center; flex-wrap:wrap; gap:1rem; margin:3rem 0; }
 .gallery img { width:150px; border-radius:12px; box-shadow:0 5px 15px rgba(108,52,97,0.2); transition: transform 0.3s ease; }
@@ -78,6 +86,29 @@ footer { text-align:center; padding:3rem 1rem; color:var(--wine);}
   <p>Nine beautiful months of us</p>
 </section>
 
+<!-- Counter Section -->
+<section class="counter-section" id="counter">
+  <h2>Our Time Together</h2>
+  <div class="counter-grid">
+    <div class="counter-item">
+      <div class="counter-number" data-target="9">0</div>
+      <div class="counter-label">Months</div>
+    </div>
+    <div class="counter-item">
+      <div class="counter-number" data-target="274">0</div>
+      <div class="counter-label">Days</div>
+    </div>
+    <div class="counter-item">
+      <div class="counter-number" data-target="6570">0</div>
+      <div class="counter-label">Hours</div>
+    </div>
+    <div class="counter-item">
+      <div class="counter-number" id="liveMinutes">0</div>
+      <div class="counter-label">Minutes</div>
+    </div>
+  </div>
+</section>
+
 <!-- Gallery -->
 <section class="gallery">
   <img src="photo1.jpg" alt="Photo 1">
@@ -93,7 +124,7 @@ footer { text-align:center; padding:3rem 1rem; color:var(--wine);}
 </footer>
 
 <script>
-// Fade-in page on unlock
+// Fade-in page
 window.addEventListener('load', () => { document.body.classList.add('fade-in'); });
 
 // Create hearts and carnation petals
@@ -119,20 +150,63 @@ window.addEventListener('load', () => { document.body.classList.add('fade-in'); 
   }
 })();
 
-// Easter egg: press "i", "l", "m", "y" to reveal
-let easterCode = ['i','l','m','y'];
-let easterIndex = 0;
-document.addEventListener('keydown', (e) => {
+// Intersection observer for scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry,index)=>{
+    if(entry.isIntersecting){
+      setTimeout(()=>{ entry.target.classList.add('visible'); }, index*100);
+    }
+  });
+}, { threshold:0.15 });
+
+document.querySelectorAll('.counter-item').forEach(el=>observer.observe(el));
+
+// Counter animation
+function animateCounters(){
+  document.querySelectorAll('.counter-number[data-target]').forEach(counter=>{
+    const target=parseInt(counter.getAttribute('data-target'));
+    const duration=2000;
+    const startTime=performance.now();
+    function update(currentTime){
+      const elapsed=currentTime-startTime;
+      const progress=Math.min(elapsed/duration,1);
+      const eased=1-Math.pow(1-progress,3);
+      counter.textContent=Math.floor(eased*target).toLocaleString();
+      if(progress<1){ requestAnimationFrame(update); } else { counter.textContent=target.toLocaleString(); }
+    }
+    requestAnimationFrame(update);
+  });
+}
+
+// Trigger counters when visible
+const counterSection = document.getElementById('counter');
+const counterObserver = new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting){
+    animateCounters();
+    counterObserver.disconnect();
+  }
+},{threshold:0.3});
+counterObserver.observe(counterSection);
+
+// Live minutes counter
+const minutesEl = document.getElementById('liveMinutes');
+const approxTotalMinutes = 9*30.44*24*60;
+let minuteOffset=0;
+function updateMinutes(){ minuteOffset++; minutesEl.textContent=Math.floor(approxTotalMinutes+minuteOffset).toLocaleString(); }
+setTimeout(()=>{ minutesEl.textContent=Math.floor(approxTotalMinutes).toLocaleString(); setInterval(updateMinutes,60000); },2500);
+
+// Easter egg: key sequence i-l-m-y
+let easterCode = ['i','l','m','y'], easterIndex = 0;
+document.addEventListener('keydown', e=>{
   if(e.key.toLowerCase() === easterCode[easterIndex]){
     easterIndex++;
     if(easterIndex === easterCode.length){
-      document.getElementById('easterEgg').style.display='block';
-      setTimeout(()=>{ document.getElementById('easterEgg').style.display='none'; }, 5000);
+      const egg = document.getElementById('easterEgg');
+      egg.style.display='block';
+      setTimeout(()=>{ egg.style.display='none'; },5000);
       easterIndex = 0;
     }
-  } else {
-    easterIndex = 0;
-  }
+  } else { easterIndex = 0; }
 });
 </script>
 
