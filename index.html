@@ -1,195 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>R ❤️ A</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R ❤️ A</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            color: white;
+            text-align: center;
+            background: linear-gradient(-45deg, #ffd6e7, #ffb3d1, #ffc2dc, #ffe6f0);
+            background-size: 400% 400%;
+            animation: gradientMove 15s ease infinite;
+        }
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{
-    font-family:'Poppins',sans-serif;
-    overflow:hidden;
-    color:white;
-    text-align:center;
-    background: linear-gradient(-45deg,#ffd6e7,#ffb3d1,#ffc2dc,#ffe6f0);
-    background-size:400% 400%;
-    animation: gradientMove 15s ease infinite;
-}
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-@keyframes gradientMove{
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
-}
+        /* iPhone Lock Screen */
+        #lockScreen {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            backdrop-filter: blur(15px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
 
-/* iPhone Lock Screen */
-#lockScreen{
-    position:fixed;
-    width:100%;
-    height:100vh;
-    backdrop-filter:blur(15px);
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-}
+        .time {
+            font-size: 4em;
+            font-weight: 300;
+        }
 
-.time{
-    font-size:4em;
-    font-weight:300;
-}
+        .date {
+            margin-bottom: 20px;
+        }
 
-.date{
-    margin-bottom:20px;
-}
+        .unlock-btn {
+            padding: 12px 30px;
+            border-radius: 30px;
+            border: none;
+            background: #ff6fa5;
+            color: white;
+            margin-top: 20px;
+            cursor: pointer;
+        }
 
-.unlock-btn{
-    padding:12px 30px;
-    border-radius:30px;
-    border:none;
-    background:#ff6fa5;
-    color:white;
-    margin-top:20px;
-    cursor:pointer;
-}
+        /* Main Content */
+        #main {
+            display: none;
+            animation: fadeIn 2s ease forwards;
+            padding: 40px;
+        }
 
-/* Main Content */
-#main{
-    display:none;
-    animation:fadeIn 2s ease forwards;
-    padding:40px;
-}
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
 
-@keyframes fadeIn{
-    from{opacity:0;}
-    to{opacity:1;}
-}
+        /* Initials */
+        .initials {
+            font-size: 4em;
+            font-family: 'Playfair Display', serif;
+            animation: pulse 2s infinite alternate;
+        }
 
-/* Initials */
-.initials{
-    font-size:4em;
-    font-family:'Playfair Display',serif;
-    animation:pulse 2s infinite alternate;
-}
-@keyframes pulse{
-    from{text-shadow:0 0 10px #fff;}
-    to{text-shadow:0 0 30px #ff2e7a;}
-}
+        @keyframes pulse {
+            from { text-shadow: 0 0 10px #fff; }
+            to { text-shadow: 0 0 30px #ff2e7a; }
+        }
 
-/* Rose Petals */
-.petal{
-    position:fixed;
-    top:-10px;
-    font-size:20px;
-    animation:fall linear infinite;
-}
-@keyframes fall{
-    to{
-        transform:translateY(110vh) rotate(360deg);
-    }
-}
+        /* Rose Petals */
+        .petal {
+            position: fixed;
+            top: -10px;
+            font-size: 20px;
+            animation: fall linear infinite;
+        }
 
-/* Countdown */
-.countdown{
-    margin-top:20px;
-    font-size:1.2em;
-}
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
 
-/* Hidden Easter Egg */
-.secret{
-    position:fixed;
-    bottom:10px;
-    right:10px;
-    font-size:12px;
-    opacity:0.2;
-    cursor:pointer;
-}
-.secret-message{
-    display:none;
-    position:fixed;
-    top:40%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    background:white;
-    color:#ff2e7a;
-    padding:30px;
-    border-radius:20px;
-}
+        /* Countdown */
+        .countdown {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
 
-</style>
+        /* Hidden Easter Egg */
+        .secret {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            font-size: 12px;
+            opacity: 0.2;
+            cursor: pointer;
+        }
+
+        .secret-message {
+            display: none;
+            position: fixed;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            color: #ff2e7a;
+            padding: 30px;
+            border-radius: 20px;
+        }
+    </style>
 </head>
-
 <body>
+    <!-- LOCK SCREEN -->
+    <div id="lockScreen">
+        <div class="time" id="time"></div>
+        <div class="date" id="date"></div>
+        <button class="unlock-btn" onclick="unlock()">Swipe Up to Unlock ❤️</button>
+    </div>
 
-<!-- LOCK SCREEN -->
-<div id="lockScreen">
-    <div class="time" id="time"></div>
-    <div class="date" id="date"></div>
-    <button class="unlock-btn" onclick="unlock()">Swipe Up to Unlock ❤️</button>
-</div>
+    <!-- MAIN -->
+    <div id="main">
+        <div class="initials">R ❤️ A</div>
+        <h1>Happy 9th Monthsary Aloha 💕</h1>
+        <p>You are my peace, my blessing, my forever.</p>
+        <div class="countdown" id="countdown"></div>
+    </div>
 
-<!-- MAIN -->
-<div id="main">
-    <div class="initials">R ❤️ A</div>
-    <h1>Happy 9th Monthsary Aloha 💕</h1>
-    <p>You are my peace, my blessing, my forever.</p>
+    <!-- Easter Egg -->
+    <div class="secret" onclick="showSecret()">∞</div>
+    <div class="secret-message" id="secretMsg">
+        I will marry you someday. 💍
+    </div>
 
-    <div class="countdown" id="countdown"></div>
-</div>
+    <script>
+        /* Live Time */
+        function updateTime() {
+            const now = new Date();
+            document.getElementById("time").innerHTML = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            document.getElementById("date").innerHTML = now.toDateString();
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
 
-<div class="secret" onclick="showSecret()">∞</div>
+        /* Unlock */
+        function unlock() {
+            document.getElementById("lockScreen").style.display = "none";
+            document.getElementById("main").style.display = "block";
+        }
 
-<div class="secret-message" id="secretMsg">
-    I will marry you someday. 💍  
-</div>
+        /* Rose Petals */
+        for (let i = 0; i < 20; i++) {
+            let petal = document.createElement("div");
+            petal.className = "petal";
+            petal.innerHTML = "🌸";
+            petal.style.left = Math.random() * 100 + "vw";
+            petal.style.animationDuration = (5 + Math.random() * 5) + "s";
+            document.body.appendChild(petal);
+        }
 
-<script>
+        /* Proposal Countdown */
+        const proposalDate = new Date("May 18, 2026 00:00:00").getTime();
+        setInterval(function() {
+            const now = new Date().getTime();
+            const distance = proposalDate - now;
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            document.getElementById("countdown").innerHTML = 
+                "Countdown to our 1st Anniversary 💍: " + days + " days";
+        }, 1000);
 
-/* Live Time */
-function updateTime(){
-    const now=new Date();
-    document.getElementById("time").innerHTML=
-        now.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
-    document.getElementById("date").innerHTML=
-        now.toDateString();
-}
-setInterval(updateTime,1000);
-updateTime();
-
-/* Unlock */
-function unlock(){
-    document.getElementById("lockScreen").style.display="none";
-    document.getElementById("main").style.display="block";
-}
-
-/* Rose Petals */
-for(let i=0;i<20;i++){
-    let petal=document.createElement("div");
-    petal.className="petal";
-    petal.innerHTML="🌸";
-    petal.style.left=Math.random()*100+"vw";
-    petal.style.animationDuration=(5+Math.random()*5)+"s";
-    document.body.appendChild(petal);
-}
-
-/* Proposal Countdown */
-const proposalDate=new Date("May 18, 2026 00:00:00").getTime();
-setInterval(function(){
-    const now=new Date().getTime();
-    const distance=proposalDate-now;
-    const days=Math.floor(distance/(1000*60*60*24));
-    document.getElementById("countdown").innerHTML=
-    "Countdown to our 1st Anniversary 💍: "+days+" days";
-},1000);
-
-/* Easter Egg */
-function showSecret(){
-    document.getElementById("secretMsg").style.display="block";
-}
-</script>
-
+        /* Easter Egg */
+        function showSecret() {
+            document.getElementById("secretMsg").style.display = "block";
+        }
+    </script>
 </body>
 </html>
