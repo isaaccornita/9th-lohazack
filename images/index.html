@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy 9th Monthsary, Isaac & Aloha</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Lora:ital,wght@0,400;0,600;1,400&family=Great+Vibes&display=swap');
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    :root {
+      --rose: #e8a0bf;
+      --blush: #f4c2c2;
+      --cream: #fff5f5;
+      --deep-rose: #c06c84;
+      --wine: #6c3461;
+      --gold: #d4a574;
+      --soft-white: #fefefe;
+    }
+
+    body { font-family: 'Lora', serif; background: var(--cream); color: #4a3040; overflow-x: hidden; }
+
+    /* Floating hearts background */
+    .floating-hearts { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; overflow:hidden; }
+    .heart-particle { position: absolute; bottom:-20px; opacity:0; animation: floatUp linear infinite; font-size:1rem; color: var(--rose); }
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(0deg) scale(1); opacity:0; }
+      10% { opacity:0.6; }
+      90% { opacity:0.3; }
+      100% { transform: translateY(-100vh) rotate(360deg) scale(0.5); opacity:0; }
+    }
+
+    /* Hero Section */
+    .hero { position: relative; min-height: 100vh; display:flex; flex-direction: column; align-items:center; justify-content:center; text-align:center; background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 30%, #f48fb1 60%, #e8a0bf 100%); overflow:hidden; padding:2rem; }
+    .hero::before { content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%; background:radial-gradient(ellipse at center, rgba(255,255,255,0.3) 0%, transparent 70%); animation: shimmer 8s ease-in-out infinite; }
+    @keyframes shimmer { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(5%,5%) scale(1.05); } }
+    .hero-content { position: relative; z-index:2; }
+    .hero-subtitle { font-size:1rem; letter-spacing:0.3em; text-transform:uppercase; color: var(--wine); margin-bottom:1rem; opacity:0; animation: fadeInUp 1s ease 0.3s forwards; }
+    .hero-title { font-family: 'Great Vibes', cursive; font-size: clamp(3rem, 10vw, 7rem); color: var(--wine); line-height:1.2; margin-bottom:0.5rem; opacity:0; animation: fadeInUp 1s ease 0.6s forwards; text-shadow: 2px 2px 4px rgba(108,52,97,0.15); }
+    .hero-names { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight:700; color: var(--wine); margin-bottom:1.5rem; opacity:0; animation: fadeInUp 1s ease 0.9s forwards; }
+    .hero-names .ampersand { font-family:'Great Vibes', cursive; font-size:1.4em; color: var(--deep-rose); margin:0 0.3em; }
+    .hero-date { font-size:1.1rem; color: var(--deep-rose); letter-spacing:0.15em; opacity:0; animation: fadeInUp 1s ease 1.2s forwards; margin-bottom:2rem; }
+    .hero-heart { font-size:2rem; color: var(--wine); opacity:0; animation: fadeInUp 1s ease 1.5s forwards, pulse 2s ease-in-out 2.5s infinite; }
+    @keyframes fadeInUp { from { opacity:0; transform: translateY(30px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes pulse { 0%,100%{ transform:scale(1); } 50% { transform:scale(1.2); } }
+
+    /* Scroll Indicator */
+    .scroll-indicator { position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); z-index:2; opacity:0; animation: fadeInUp 1s ease 2s forwards; }
+    .scroll-indicator a { color: var(--wine); text-decoration:none; font-size:0.85rem; letter-spacing:0.15em; text-transform:uppercase; display:flex; flex-direction:column; align-items:center; gap:0.5rem; }
+    .scroll-arrow { display:block; width:1px; height:40px; background: var(--wine); position:relative; animation: scrollBounce 2s ease-in-out infinite; }
+    @keyframes scrollBounce { 0%,100%{ transform: scaleY(1); opacity:1; } 50% { transform:scaleY(1.3); opacity:0.5; } }
+
+    /* Sections */
+    section { position:relative; z-index:1; padding:5rem 2rem; }
+    .section-title { font-family: 'Great Vibes', cursive; font-size: clamp(2rem, 6vw, 3.5rem); color: var(--wine); text-align:center; margin-bottom:1rem; }
+    .section-divider { display:flex; align-items:center; justify-content:center; gap:1rem; margin-bottom:3rem; }
+    .section-divider .line { width:60px; height:1px; background: var(--rose); }
+    .section-divider .diamond { width:8px; height:8px; background: var(--rose); transform: rotate(45deg); }
+
+    /* Counter Section */
+    .counter-section { background: var(--soft-white); }
+    .counter-grid { display:flex; flex-wrap:wrap; justify-content:center; gap:2rem; max-width:800px; margin:0 auto; }
+    .counter-item { text-align:center; min-width:120px; opacity:0; transform:translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .counter-item.visible { opacity:1; transform:translateY(0); }
+    .counter-number { font-family: 'Playfair Display', serif; font-size:clamp(2.5rem,5vw,3.5rem); font-weight:700; color: var(--deep-rose); line-height:1; }
+    .counter-label { font-family: 'Lora', serif; font-size:0.9rem; color: var(--wine); margin-top:0.3rem; letter-spacing:0.1em; text-transform:uppercase; }
+
+    /* Letter Section */
+    .letter-section { background: var(--soft-white); }
+    .letter-container { max-width:650px; margin:0 auto; background:white; border-radius:16px; padding:3rem 2.5rem; box-shadow:0 10px 40px rgba(108,52,97,0.1); position:relative; opacity:0; transform:translateY(30px); transition:opacity 0.8s ease, transform 0.8s ease; }
+    .letter-container.visible { opacity:1; transform:translateY(0); }
+    .letter-container::before { content: '\201C'; font-family:'Great Vibes', cursive; font-size:6rem; color: var(--blush); position:absolute; top:-0.5rem; left:1.5rem; line-height:1; }
+    .letter-greeting { font-family:'Great Vibes', cursive; font-size:2rem; color: var(--wine); margin-bottom:1.5rem; padding-top:1rem; }
+    .letter-body p { font-family:'Lora', serif; font-size:1rem; line-height:1.9; color:#5a3d50; margin-bottom:1.2rem; }
+    .letter-closing { font-family:'Great Vibes', cursive; font-size:1.8rem; color: var(--deep-rose); margin-top:2rem; text-align:right; }
+
+    /* Reasons Section */
+    .reasons-section { background: linear-gradient(180deg, #fce4ec 0%, var(--cream) 100%); }
+    .reasons-list { max-width:600px; margin:0 auto; list-style:none; }
+    .reasons-list li { display:flex; align-items:flex-start; gap:1rem; padding:1rem 0; border-bottom:1px solid rgba(232,160,191,0.3); opacity:0; transform:translateX(-20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .reasons-list li.visible { opacity:1; transform:translateX(0); }
+    .reasons-list li:last-child { border-bottom:none; }
+    .reason-number { font-family:'Playfair Display', serif; font-weight:700; font-size:1.4rem; color: var(--deep-rose); min-width:2rem; }
+    .reason-text { font-family:'Lora', serif; font-size:1rem; line-height:1.7; color:#5a3d50; padding-top:0.15rem; }
+
+    /* Footer */
+    .footer { text-align:center; padding:4rem 2rem; background: linear-gradient(135deg, var(--wine) 0%, var(--deep-rose) 100%); color:white; }
+    .footer-title { font-family:'Great Vibes', cursive; font-size:clamp(2rem,6vw,3.5rem); margin-bottom:1rem; }
+    .footer-subtitle { font-family:'Lora', serif; font-size:1rem; opacity:0.85; letter-spacing:0.1em; }
+    .footer-heart { font-size:1.5rem; margin-top:1.5rem; display:inline-block; animation:pulse 2s ease-in-out infinite; }
+
+    @media (max-width:600px){ section{padding:3.5rem 1.5rem;} .letter-container{padding:2rem 1.5rem;} .counter-grid{gap:1.5rem;} }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Hearts -->
+  <div class="floating-hearts" id="floatingHearts"></div>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <p class="hero-subtitle">Celebrating</p>
+      <h1 class="hero-title">9 Months Together</h1>
+      <p class="hero-names">Isaac <span class="ampersand">&</span> Aloha</p>
+      <p class="hero-date">Nine beautiful months of us</p>
+      <div class="hero-heart">&hearts;</div>
+    </div>
+  </section>
+
+  <!-- Counter Section -->
+  <section class="counter-section" id="counter">
+    <h2 class="section-title">Our Time Together</h2>
+    <div class="section-divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+    <div class="counter-grid">
+      <div class="counter-item"><div class="counter-number" data-target="9">0</div><div class="counter-label">Months</div></div>
+      <div class="counter-item"><div class="counter-number" data-target="274">0</div><div class="counter-label">Days</div></div>
+      <div class="counter-item"><div class="counter-number" data-target="6570">0</div><div class="counter-label">Hours</div></div>
+      <div class="counter-item"><div class="counter-number" id="liveMinutes">0</div><div class="counter-label">Minutes</div></div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+<section class="gallery-section" id="gallery">
+    <h2 class="section-title">February 14-15, 2026</h2>
+    <div class="section-divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+    <div class="gallery-grid" style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap; max-width:900px; margin:0 auto;">
+      <div class="gallery-item"><img src="images/photo1.jpg" alt="Picture 1" style="width:170px; border-radius:12px; box-shadow:0 5px 15px rgba(108,52,97,0.2);"></div>
+      <div class="gallery-item"><img src="images/photo2.jpg" alt="Picture 2" style="width:170px; border-radius:12px; box-shadow:0 5px 15px rgba(108,52,97,0.2);"></div>
+      <div class="gallery-item"><img src="images/photo3.jpg" alt="Picture 3" style="width:170px; border-radius:12px; box-shadow:0 5px 15px rgba(108,52,97,0.2);"></div>
+      <div class="gallery-item"><img src="images/photo4.jpg" alt="Picture 4" style="width:170px; border-radius:12px; box-shadow:0 5px 15px rgba(108,52,97,0.2);"></div>
+      <div class="gallery-item"><img src="images/photo5.jpg" alt="Picture 5" style="width:170px; border-radius:12px; box-shadow:0 5px 15px rgba(108,52,97,0.2);"></div>
+    </div>
+  </section>
+
+  <!-- Letter Section -->
+  <section class="letter-section" id="letter">
+    <h2 class="section-title">A Letter For You</h2>
+    <div class="section-divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+    <div class="letter-container">
+      <p class="letter-greeting">My Dearest Aloha,</p>
+      <div class="letter-body">
+        <p>Nine months ago, my world changed in the most beautiful way when you became a part of it. Every day since then has been a gift I never knew I needed.</p>
+        <p>You have this incredible way of turning ordinary moments into extraordinary memories. Your smile lights up even the darkest days, and your laughter is the sweetest melody I have ever heard.</p>
+        <p>Thank you for your patience, your kindness, and for loving me in ways I never thought possible. Thank you for every hug, every late-night conversation, and every moment you chose to stay.</p>
+        <p>Here's to nine months of love, growth, and countless beautiful moments together. And here's to all the months, years, and forever that lie ahead of us.</p>
+        <p>I love you more than words on this page could ever express.</p>
+      </div>
+      <p class="letter-closing">Forever yours, Isaac</p>
+    </div>
+  </section>
+
+  <!-- Reasons Section -->
+  <section class="reasons-section" id="reasons">
+    <h2 class="section-title">9 Reasons I Love You</h2>
+    <div class="section-divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+    <ul class="reasons-list">
+      <li><span class="reason-number">1</span><span class="reason-text">The way your smile can make everything feel right, no matter what kind of day it's been.</span></li>
+      <li><span class="reason-number">2</span><span class="reason-text">Your kindness and the way you care so deeply about the people around you.</span></li>
+      <li><span class="reason-number">3</span><span class="reason-text">How you make even the simplest moments feel like something worth remembering.</span></li>
+      <li><span class="reason-number">4</span><span class="reason-text">Your strength and how you inspire me to be a better person every single day.</span></li>
+      <li><span class="reason-number">5</span><span class="reason-text">The sound of your laughter, which is honestly the best sound in the world.</span></li>
+      <li><span class="reason-number">6</span><span class="reason-text">How safe and at home I feel whenever I'm with you.</span></li>
+      <li><span class="reason-number">7</span><span class="reason-text">Your patience with me and the way you understand me like no one else does.</span></li>
+      <li><span class="reason-number">8</span><span class="reason-text">The little things you do that show me you care without even saying a word.</span></li>
+      <li><span class="reason-number">9</span><span class="reason-text">Because after nine months, I fall in love with you all over again every day.</span></li>
+    </ul>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <h2 class="footer-title">Happy 9th Monthsary</h2>
+    <p class="footer-subtitle">Isaac & Aloha</p>
+    <div class="footer-heart">&hearts;</div>
+  </footer>
+
+  <script>
+    // Floating hearts
+    (function createFloatingHearts() {
+      const container = document.getElementById('floatingHearts');
+      const hearts = ['\u2665','\u2764','\u2661'];
+      for(let i=0;i<20;i++){
+        const heart=document.createElement('span');
+        heart.className='heart-particle';
+        heart.textContent=hearts[Math.floor(Math.random()*hearts.length)];
+        heart.style.left=Math.random()*100+'%';
+        heart.style.fontSize=(Math.random()*1.2+0.5)+'rem';
+        heart.style.animationDuration=(Math.random()*10+10)+'s';
+        heart.style.animationDelay=(Math.random()*15)+'s';
+        container.appendChild(heart);
+      }
+    })();
+
+    // Scroll animations
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach((entry,index)=>{
+        if(entry.isIntersecting){
+          setTimeout(()=>{ entry.target.classList.add('visible'); }, index*100);
+        }
+      });
+    },{threshold:0.15});
+    document.querySelectorAll('.counter-item, .letter-container, .reasons-list li').forEach(el=>observer.observe(el));
+
+    // Counter animation
+    function animateCounters(){
+      document.querySelectorAll('.counter-number[data-target]').forEach(counter=>{
+        const target=parseInt(counter.getAttribute('data-target'));
+        const duration=2000;
+        const startTime=performance.now();
+        function update(currentTime){
+          const elapsed=currentTime-startTime;
+          const progress=Math.min(elapsed/duration,1);
+          const eased=1-Math.pow(1-progress,3);
+          counter.textContent=Math.floor(eased*target).toLocaleString();
+          if(progress<1){ requestAnimationFrame(update); } else { counter.textContent=target.toLocaleString(); }
+        }
+        requestAnimationFrame(update);
+      });
+    }
+    const counterSection=document.getElementById('counter');
+    const counterObserver=new IntersectionObserver(entries=>{
+      if(entries[0].isIntersecting){
+        animateCounters();
+        counterObserver.disconnect();
+      }
+    },{threshold:0.3});
+    counterObserver.observe(counterSection);
+
+    // Live minutes counter
+    const minutesEl=document.getElementById('liveMinutes');
+    const approxTotalMinutes=9*30.44*24*60;
+    let minuteOffset=0;
+    function updateMinutes(){ minuteOffset++; minutesEl.textContent=Math.floor(approxTotalMinutes+minuteOffset).toLocaleString(); }
+    setTimeout(()=>{ minutesEl.textContent=Math.floor(approxTotalMinutes).toLocaleString(); setInterval(updateMinutes,60000); },2500);
+  </script>
+
+</body>
+</html>
