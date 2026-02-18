@@ -8,240 +8,187 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-
-body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #ffd6e7, #ffc2dc, #ffe6f0);
-    color:#7a2c50;
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+    font-family:'Poppins',sans-serif;
+    overflow:hidden;
+    color:white;
     text-align:center;
-    overflow-x:hidden;
+    background: linear-gradient(-45deg,#ffd6e7,#ffb3d1,#ffc2dc,#ffe6f0);
+    background-size:400% 400%;
+    animation: gradientMove 15s ease infinite;
 }
 
-/* PASSWORD SCREEN */
-#password-screen {
+@keyframes gradientMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+/* iPhone Lock Screen */
+#lockScreen{
     position:fixed;
     width:100%;
     height:100vh;
-    background: linear-gradient(135deg, #ffd6e7, #ffc2dc);
+    backdrop-filter:blur(15px);
     display:flex;
+    flex-direction:column;
     justify-content:center;
     align-items:center;
-    flex-direction:column;
-    z-index:1000;
 }
 
-#password-screen input {
-    padding:12px;
-    border-radius:30px;
-    border:none;
-    margin-top:15px;
-    text-align:center;
+.time{
+    font-size:4em;
+    font-weight:300;
 }
 
-#password-screen button {
-    margin-top:10px;
-    padding:10px 25px;
-    border:none;
+.date{
+    margin-bottom:20px;
+}
+
+.unlock-btn{
+    padding:12px 30px;
     border-radius:30px;
+    border:none;
     background:#ff6fa5;
     color:white;
+    margin-top:20px;
     cursor:pointer;
 }
 
 /* Main Content */
-.hidden { display:none; }
-
-.container {
-    padding:60px 20px;
-}
-
-.glass {
-    background: rgba(255,255,255,0.35);
-    backdrop-filter: blur(18px);
-    border-radius:30px;
-    padding:50px;
-    max-width:850px;
-    margin:auto;
-    box-shadow:0 15px 40px rgba(0,0,0,0.1);
-}
-
-/* Animated Initials */
-.initials {
-    font-family:'Playfair Display', serif;
-    font-size:4em;
-    animation: glow 2s infinite alternate;
-}
-
-@keyframes glow {
-    from { text-shadow:0 0 10px #ff8fb8; }
-    to { text-shadow:0 0 25px #ff2e7a; }
-}
-
-h1 {
-    font-family:'Playfair Display', serif;
-    font-size:2.5em;
-    margin-top:10px;
-}
-
-.message {
-    margin-top:25px;
-    line-height:1.7;
-}
-
-/* Hidden Love Letter */
-.love-letter {
-    margin-top:30px;
+#main{
     display:none;
-    background:rgba(255,255,255,0.4);
-    padding:25px;
-    border-radius:20px;
+    animation:fadeIn 2s ease forwards;
+    padding:40px;
 }
 
-button {
-    margin-top:20px;
-    padding:12px 30px;
-    border:none;
-    border-radius:30px;
-    background:#ff6fa5;
-    color:white;
-    cursor:pointer;
+@keyframes fadeIn{
+    from{opacity:0;}
+    to{opacity:1;}
+}
+
+/* Initials */
+.initials{
+    font-size:4em;
+    font-family:'Playfair Display',serif;
+    animation:pulse 2s infinite alternate;
+}
+@keyframes pulse{
+    from{text-shadow:0 0 10px #fff;}
+    to{text-shadow:0 0 30px #ff2e7a;}
+}
+
+/* Rose Petals */
+.petal{
+    position:fixed;
+    top:-10px;
+    font-size:20px;
+    animation:fall linear infinite;
+}
+@keyframes fall{
+    to{
+        transform:translateY(110vh) rotate(360deg);
+    }
 }
 
 /* Countdown */
-.countdown {
-    margin-top:25px;
-    font-weight:500;
+.countdown{
+    margin-top:20px;
+    font-size:1.2em;
 }
 
-/* Gallery */
-.gallery {
-    margin-top:60px;
+/* Hidden Easter Egg */
+.secret{
+    position:fixed;
+    bottom:10px;
+    right:10px;
+    font-size:12px;
+    opacity:0.2;
+    cursor:pointer;
 }
-
-.gallery-images {
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-    gap:15px;
-    padding:0 20px;
-}
-
-.gallery-images img {
-    width:100%;
+.secret-message{
+    display:none;
+    position:fixed;
+    top:40%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    background:white;
+    color:#ff2e7a;
+    padding:30px;
     border-radius:20px;
-    transition:0.3s;
 }
 
-.gallery-images img:hover {
-    transform:scale(1.05);
-}
-
-footer {
-    margin-top:60px;
-    padding-bottom:20px;
-    opacity:0.7;
-}
 </style>
 </head>
 
 <body>
 
-<!-- PASSWORD SCREEN -->
-<div id="password-screen">
-    <h2>Enter Our Special Password 🔐</h2>
-    <input type="password" id="passwordInput" placeholder="Enter password">
-    <button onclick="checkPassword()">Unlock ❤️</button>
+<!-- LOCK SCREEN -->
+<div id="lockScreen">
+    <div class="time" id="time"></div>
+    <div class="date" id="date"></div>
+    <button class="unlock-btn" onclick="unlock()">Swipe Up to Unlock ❤️</button>
 </div>
 
-<!-- MAIN CONTENT -->
-<div id="main-content" class="hidden">
+<!-- MAIN -->
+<div id="main">
+    <div class="initials">R ❤️ A</div>
+    <h1>Happy 9th Monthsary Aloha 💕</h1>
+    <p>You are my peace, my blessing, my forever.</p>
 
-<div class="container">
-    <div class="glass">
-
-        <div class="initials">R ❤️ A</div>
-
-        <h1>Happy 9th Monthsary, Aloha 💕</h1>
-
-        <div class="message">
-            Nine months with you has been the most beautiful chapter of my life.
-            You are my peace, my answered prayer, my greatest blessing.
-            I love you more than words can ever explain.
-        </div>
-
-        <div class="countdown" id="countdown">
-            Countdown to our 1st Anniversary 💍
-        </div>
-
-        <button onclick="toggleLetter()">Open Hidden Love Letter 💌</button>
-
-        <div class="love-letter" id="loveLetter">
-            Aloha,  
-            If someday you forget how much you mean to me,
-            remember this website exists because I love you
-            in a way that is patient, intentional, and forever.
-            I will continue choosing you every single day. ❤️
-        </div>
-
-    </div>
+    <div class="countdown" id="countdown"></div>
 </div>
 
-<!-- Gallery -->
-<div class="gallery">
-    <h2>Our Memories 📸</h2>
-    <div class="gallery-images">
-        <img src="photo1.jpg">
-        <img src="photo2.jpg">
-        <img src="photo3.jpg">
-        <img src="photo4.jpg">
-    </div>
-</div>
+<div class="secret" onclick="showSecret()">∞</div>
 
-<footer>
-Made with love by Reign ❤️
-</footer>
-
-<audio autoplay loop>
-    <source src="music.mp3" type="audio/mpeg">
-</audio>
-
+<div class="secret-message" id="secretMsg">
+    I will marry you someday. 💍  
 </div>
 
 <script>
-// 🔐 CHANGE YOUR PASSWORD HERE
-const correctPassword = "RAndA9Months";
 
-function checkPassword(){
-    const input = document.getElementById("passwordInput").value;
-    if(input === correctPassword){
-        document.getElementById("password-screen").style.display="none";
-        document.getElementById("main-content").classList.remove("hidden");
-    } else {
-        alert("Wrong password my love ❤️ Try again.");
-    }
+/* Live Time */
+function updateTime(){
+    const now=new Date();
+    document.getElementById("time").innerHTML=
+        now.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+    document.getElementById("date").innerHTML=
+        now.toDateString();
+}
+setInterval(updateTime,1000);
+updateTime();
+
+/* Unlock */
+function unlock(){
+    document.getElementById("lockScreen").style.display="none";
+    document.getElementById("main").style.display="block";
 }
 
-function toggleLetter(){
-    const letter = document.getElementById("loveLetter");
-    letter.style.display = letter.style.display === "block" ? "none" : "block";
+/* Rose Petals */
+for(let i=0;i<20;i++){
+    let petal=document.createElement("div");
+    petal.className="petal";
+    petal.innerHTML="🌸";
+    petal.style.left=Math.random()*100+"vw";
+    petal.style.animationDuration=(5+Math.random()*5)+"s";
+    document.body.appendChild(petal);
 }
 
-// 🎉 SET YOUR REAL ANNIVERSARY DATE
-const anniversary = new Date("May 18, 2026 00:00:00").getTime();
-
+/* Proposal Countdown */
+const proposalDate=new Date("May 18, 2026 00:00:00").getTime();
 setInterval(function(){
-    const now = new Date().getTime();
-    const distance = anniversary - now;
-
-    const days = Math.floor(distance/(1000*60*60*24));
-    const hours = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
-    const minutes = Math.floor((distance%(1000*60*60))/(1000*60));
-    const seconds = Math.floor((distance%(1000*60))/1000);
-
-    document.getElementById("countdown").innerHTML =
-    days+"d "+hours+"h "+minutes+"m "+seconds+"s";
-
+    const now=new Date().getTime();
+    const distance=proposalDate-now;
+    const days=Math.floor(distance/(1000*60*60*24));
+    document.getElementById("countdown").innerHTML=
+    "Countdown to our 1st Anniversary 💍: "+days+" days";
 },1000);
+
+/* Easter Egg */
+function showSecret(){
+    document.getElementById("secretMsg").style.display="block";
+}
 </script>
 
 </body>
