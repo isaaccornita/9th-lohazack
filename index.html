@@ -176,21 +176,34 @@
   </footer>
 
   <script>
-    // Floating hearts
-    (function createFloatingHearts() {
-      const container = document.getElementById('floatingHearts');
-      const hearts = ['\u2665','\u2764','\u2661'];
-      for(let i=0;i<20;i++){
-        const heart=document.createElement('span');
-        heart.className='heart-particle';
-        heart.textContent=hearts[Math.floor(Math.random()*hearts.length)];
-        heart.style.left=Math.random()*100+'%';
-        heart.style.fontSize=(Math.random()*1.2+0.5)+'rem';
-        heart.style.animationDuration=(Math.random()*10+10)+'s';
-        heart.style.animationDelay=(Math.random()*15)+'s';
-        container.appendChild(heart);
-      }
-    })();
+    <!-- Particle container -->
+<div class="particle-container" id="particles"></div>
+
+<script>
+// Create floating hearts and carnation petals
+(function createParticles() {
+  const container = document.getElementById('particles');
+  const hearts = ['\u2665','\u2764','\u2661'];
+  const petals = ['\u273f','\u272d','\u2740']; // ❿✭✰ as stylized petals
+  for(let i=0;i<30;i++){
+    const particle = document.createElement('span');
+    particle.className = 'particle';
+    if(Math.random() < 0.5){
+      particle.classList.add('heart');
+      particle.textContent = hearts[Math.floor(Math.random()*hearts.length)];
+    } else {
+      particle.classList.add('petals');
+      particle.textContent = petals[Math.floor(Math.random()*petals.length)];
+    }
+    particle.style.left = Math.random()*100 + '%';
+    particle.style.fontSize = (Math.random()*1.5 + 0.7) + 'rem';
+    particle.style.animationDuration = (Math.random()*12 + 8) + 's';
+    particle.style.animationDelay = (Math.random()*15)+'s';
+    container.appendChild(particle);
+  }
+})();
+</script>
+
 
     // Scroll animations
     const observer = new IntersectionObserver((entries)=>{
