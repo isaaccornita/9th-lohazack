@@ -9,10 +9,9 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-
 body{
     font-family:'Poppins',sans-serif;
-    overflow-x:hidden;
+    overflow:hidden;
     color:white;
     text-align:center;
     background: linear-gradient(-45deg,#ffd6e7,#ffb3d1,#ffc2dc,#ffe6f0);
@@ -26,7 +25,7 @@ body{
     100%{background-position:0% 50%;}
 }
 
-/* Lock Screen */
+/* iPhone Lock Screen */
 #lockScreen{
     position:fixed;
     width:100%;
@@ -36,11 +35,16 @@ body{
     flex-direction:column;
     justify-content:center;
     align-items:center;
-    z-index:1000;
 }
 
-.time{font-size:4em;font-weight:300;}
-.date{margin-bottom:20px;}
+.time{
+    font-size:4em;
+    font-weight:300;
+}
+
+.date{
+    margin-bottom:20px;
+}
 
 .unlock-btn{
     padding:12px 30px;
@@ -52,7 +56,7 @@ body{
     cursor:pointer;
 }
 
-/* Main */
+/* Main Content */
 #main{
     display:none;
     animation:fadeIn 2s ease forwards;
@@ -64,6 +68,7 @@ body{
     to{opacity:1;}
 }
 
+/* Initials */
 .initials{
     font-size:4em;
     font-family:'Playfair Display',serif;
@@ -74,95 +79,6 @@ body{
     to{text-shadow:0 0 30px #ff2e7a;}
 }
 
-/* Countdown */
-.countdown{
-    margin-top:20px;
-    font-size:1.2em;
-}
-
-/* Instagram Album */
-.gallery-title{
-    margin-top:40px;
-    font-size:1.5em;
-    font-family:'Playfair Display',serif;
-}
-
-.gallery{
-    margin-top:20px;
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-    max-width:500px;
-    margin:auto;
-}
-
-.photo-card{
-    background:white;
-    padding:10px;
-    border-radius:20px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.15);
-    position:relative;
-}
-
-.photo-card img{
-    width:100%;
-    height:200px;
-    object-fit:cover;
-    border-radius:15px;
-    cursor:pointer;
-    transition:0.3s;
-}
-
-.photo-card img:hover{
-    transform:scale(1.03);
-}
-
-/* Floating Hearts */
-.heart{
-    position:absolute;
-    color:#ff2e7a;
-    font-size:20px;
-    animation:floatUp 1.5s ease forwards;
-}
-
-@keyframes floatUp{
-    0%{opacity:1;transform:translateY(0);}
-    100%{opacity:0;transform:translateY(-80px);}
-}
-
-/* Lightbox */
-.lightbox{
-    display:none;
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100vh;
-    background:rgba(0,0,0,0.85);
-    backdrop-filter:blur(10px);
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    z-index:999;
-}
-
-.lightbox img{
-    max-width:90%;
-    max-height:70vh;
-    border-radius:20px;
-    box-shadow:0 20px 40px rgba(255,255,255,0.3);
-}
-
-.close-btn{
-    margin-top:20px;
-    padding:10px 25px;
-    border:none;
-    border-radius:30px;
-    background:#ff6fa5;
-    color:white;
-    cursor:pointer;
-}
-
 /* Rose Petals */
 .petal{
     position:fixed;
@@ -171,10 +87,18 @@ body{
     animation:fall linear infinite;
 }
 @keyframes fall{
-    to{transform:translateY(110vh) rotate(360deg);}
+    to{
+        transform:translateY(110vh) rotate(360deg);
+    }
 }
 
-/* Secret */
+/* Countdown */
+.countdown{
+    margin-top:20px;
+    font-size:1.2em;
+}
+
+/* Hidden Easter Egg */
 .secret{
     position:fixed;
     bottom:10px;
@@ -194,55 +118,37 @@ body{
     padding:30px;
     border-radius:20px;
 }
+
 </style>
 </head>
 
 <body>
 
+<!-- LOCK SCREEN -->
 <div id="lockScreen">
     <div class="time" id="time"></div>
     <div class="date" id="date"></div>
     <button class="unlock-btn" onclick="unlock()">Swipe Up to Unlock ❤️</button>
 </div>
 
+<!-- MAIN -->
 <div id="main">
     <div class="initials">R ❤️ A</div>
     <h1>Happy 9th Monthsary Aloha 💕</h1>
     <p>You are my peace, my blessing, my forever.</p>
+
     <div class="countdown" id="countdown"></div>
-
-    <!-- Gallery -->
-    <div class="gallery-title">February 14, 2025 💖</div>
-
-    <div class="gallery">
-        <div class="photo-card"><img src="photo1.jpg" onclick="openLightbox(this)"></div>
-        <div class="photo-card"><img src="photo2.jpg" onclick="openLightbox(this)"></div>
-        <div class="photo-card"><img src="photo3.jpg" onclick="openLightbox(this)"></div>
-        <div class="photo-card"><img src="photo4.jpg" onclick="openLightbox(this)"></div>
-        <div class="photo-card"><img src="photo5.jpg" onclick="openLightbox(this)"></div>
-    </div>
-</div>
-
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox">
-    <img id="lightbox-img">
-    <button class="close-btn" onclick="closeLightbox()">Close ❤️</button>
 </div>
 
 <div class="secret" onclick="showSecret()">∞</div>
 
 <div class="secret-message" id="secretMsg">
-    I will marry you someday. 💍
+    I will marry you someday. 💍  
 </div>
-
-<!-- Music -->
-<audio id="bgMusic" loop>
-    <source src="romantic.mp3" type="audio/mpeg">
-</audio>
 
 <script>
 
-/* Time */
+/* Live Time */
 function updateTime(){
     const now=new Date();
     document.getElementById("time").innerHTML=
@@ -257,7 +163,6 @@ updateTime();
 function unlock(){
     document.getElementById("lockScreen").style.display="none";
     document.getElementById("main").style.display="block";
-    document.getElementById("bgMusic").play();
 }
 
 /* Rose Petals */
@@ -270,7 +175,7 @@ for(let i=0;i<20;i++){
     document.body.appendChild(petal);
 }
 
-/* Countdown */
+/* Proposal Countdown */
 const proposalDate=new Date("May 18, 2026 00:00:00").getTime();
 setInterval(function(){
     const now=new Date().getTime();
@@ -280,32 +185,7 @@ setInterval(function(){
     "Countdown to our 1st Anniversary 💍: "+days+" days";
 },1000);
 
-/* Lightbox */
-function openLightbox(img){
-    document.getElementById("lightbox").style.display="flex";
-    document.getElementById("lightbox-img").src=img.src;
-    createHeart(img);
-}
-
-function closeLightbox(){
-    document.getElementById("lightbox").style.display="none";
-}
-
-/* Heart Animation */
-function createHeart(element){
-    let heart=document.createElement("div");
-    heart.className="heart";
-    heart.innerHTML="❤️";
-
-    let rect=element.getBoundingClientRect();
-    heart.style.left=rect.left + rect.width/2 + "px";
-    heart.style.top=rect.top + "px";
-
-    document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(),1500);
-}
-
-/* Secret */
+/* Easter Egg */
 function showSecret(){
     document.getElementById("secretMsg").style.display="block";
 }
